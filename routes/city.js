@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var countriesCollection = require('../database/schemas/countriesCollection')
+var cityCollection = require('../database/schemas/cityCollection')
 
 /* GET 1 city. */
-router.get('/', async (req, res, next) => {
-  const data = await countriesCollection.find()
+router.get('/:id', async (req, res, next) => {
+  const data = await cityCollection.findOne({ name: req.params.id })
   if (await data === null) {
     return res.status(404).json({ error: "City not found!"})
   }
