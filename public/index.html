@@ -1,13 +1,54 @@
-<html>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./stylesheets/style.css">
+        <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+        <title>The World App</title>
+    </head>
+    <body>
+        <h1>The World API</h1>
+        <h2>Use It</h2>
+        <div id="app">
+            <!-- Læs og vis lande i select gøres på load -->
+            <div class='area' id='countries'>
+                <div>
+                    <select name='ctry' @change="onChange($event)">
+                        <option v-for='country in countriesList' :value="country.code">
+                                {{ country.name }}
+                            </option>
+                    </select>
+                </div>
+            </div>
 
-<head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
+            <!-- valg af byer i land -->
+            <div class='area' id='cities'>
+                <table>
+                    <tr v-for='city in citiesList'>
+                        <td><strong>Country code:</strong> {{ city.countrycode }}</td>
+                        <td><strong>Name:</strong> {{ city.name }}</td>
+                        <td><strong>District:</strong> {{ city.district }}</td>
+                        <td><strong>Population:</strong> {{ city.population }}</td>
+                        <td><button id='edit'>Edit</button></td>
+                        <td><button id='delete' @click="deleteCity(city.oldid)">Delete</button></td>
+                        <tr v-for='language in languagesList'>
+                            <td><strong>Language:</strong> {{ language.language }}</td>
+                            <td><strong>Official?:</strong> {{ language.isofficial }}</td>
+                            <td><strong>Percentage:</strong> {{ language.percentage }}%</td>
+                        </tr>
+                    </tr>
+                </table>
+            </div>
 
-<body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
-</body>
-
+            <!-- Vis en by med data i form til update og knap til delete -->
+        </div>
+        <script src='./js/useWorldAPI.js'></script><!-- this is the vue app -->
+    </body>
+    <style>
+        td {
+            padding: 10px;
+            padding-left: 0;
+        }
+    </style>
 </html>

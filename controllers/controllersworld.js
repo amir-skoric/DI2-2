@@ -1,6 +1,6 @@
 const APICity = require("../database/schemas/cityCollection");
 const APICountry = require("../database/schemas/countriesCollection");
-const mongoose = require('mongoose')
+const APILanguage = require("../database/schemas/languageCollection");
 
 module.exports = {
 
@@ -26,7 +26,17 @@ module.exports = {
             res.status(400).json(error.message);
         }
     },
-
+    getCitiesByCountry: async function (req, res, next) {
+        try {
+            // read cities from designated country
+            let cities = await APICity.find( { countrycode: req.params.country } );
+            // save the read in middleware variable
+            res.locals.cities = cities;
+            next();
+        } catch (error) {
+            res.status(400).json(error.message);
+        }
+    },
     getCity: async function (req, res, next) {
         try {
             let city = await APICity.find( { oldid: req.params.city } );
@@ -37,13 +47,23 @@ module.exports = {
             res.status(400).json(error.message);
         }
     },
-
     getCountries: async function (req, res, next) {
         try {
             // read from all countries
             let countries = await APICountry.find();
             // save the read in middleware variable
             res.locals.countries = countries;
+            next();
+        } catch (error) {
+            res.status(400).json(error.message);
+        }
+    },
+    getLanguagesByCountry: async function (req, res, next) {
+        try {
+            // read from all countries
+            let languages = await APILanguage.find( { countrycode: req.params.country } );
+            // save the read in middleware variable
+            res.locals.languages = languages;
             next();
         } catch (error) {
             res.status(400).json(error.message);

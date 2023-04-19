@@ -30,6 +30,18 @@ router.get("/cities", conw.getCities, function (req, res) {
   res.json({ cities: res.locals.cities });
 });
 
+// Getting cities by country
+router.get('/citiescountry/:country', conw.getCitiesByCountry, function (req, res) {
+  // variable from middleware
+  res.json({ cities: res.locals.cities });
+});
+
+// Getting language by country
+router.get('/languagescountry/:country', conw.getLanguagesByCountry, function (req, res) {
+  // variable from middleware
+  res.json({ languages: res.locals.languages });
+});
+
 // Create city
 router.post("/cities", conw.postCity, function (req, res) {
   res.status(201).json({ message: "city created" });
@@ -44,6 +56,8 @@ router.get("/cities/:city", conw.getCity, function (req, res) {
 router.patch("/cities/:city", function (req, res) {});
 
 // Delete city
-router.delete("/cities/:city", conw.deleteCity, function (req, res) {});
+router.delete("/cities/:city", conw.deleteCity, function (req, res) {
+  res.json({ message: "city deleted"})
+});
 
 module.exports = router;
